@@ -29,7 +29,7 @@ public class FetchLists extends AsyncTask<Integer, Void, List<MailChimpList>> {
         int count = params[0];
         int offset = params[1];
 
-        String urlString = "https://us11.api.mailchimp.com/3.0/lists?apikey=YOUR_API_KEY";
+        String urlString = "https://us15.api.mailchimp.com/3.0/lists?apikey=7058115992794eaceed82be7dfc39ea6-us15";
         urlString = urlString + "&count=" + count + "&offset=" + offset;
 
         List<MailChimpList> listTitles = new ArrayList<>();
@@ -55,8 +55,9 @@ public class FetchLists extends AsyncTask<Integer, Void, List<MailChimpList>> {
             for (int i = 0; i < lists.length(); i++) {
                 JSONObject listData = (JSONObject) lists.get(i);
                 MailChimpList mailChimpList = new MailChimpList();
-                mailChimpList.id = listData.getString("name");
+                mailChimpList.id = listData.getString("id");
                 mailChimpList.title = listData.getString("name");
+                Log.d("devil","title "+mailChimpList.title);
                 listTitles.add(mailChimpList);
             }
 
@@ -72,6 +73,7 @@ public class FetchLists extends AsyncTask<Integer, Void, List<MailChimpList>> {
 
     @Override
     protected void onPostExecute(List<MailChimpList> mailChimpLists) {
-        
+        MainActivity.listfetched(mailChimpLists);
+        Log.d("devil","size of list"+mailChimpLists.size());
     }
 }
